@@ -1,0 +1,22 @@
+{
+  "name": "zenstackignoreissue",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "zenstack generate && dotenv -e .env.local -- prisma db push --accept-data-loss",
+    "run": "dotenv -e .env.local -- node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "dotenv-cli": "^7.4.2",
+    "prisma": "^5.17.0",
+    "zenstack": "^2.3.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "@zenstackhq/runtime": "^2.3.3"
+  }
+}

@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name String @default("") @allow("all", companies?[users?[isAdmin]])
+  companies Company[]
+  isAdmin Boolean?
+  
+  ignoredField Int? @ignore
+  
+  @@allow("all", auth().isAdmin)
+}
+
+model Company {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  users User[]
+  
+  @@allow("all", auth().isAdmin)
+}
